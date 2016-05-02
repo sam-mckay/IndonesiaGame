@@ -98,6 +98,8 @@ public class MapGenerator : MonoBehaviour {
             }
         }
 
+        ExportRoomTiles(validRooms);
+
         validRooms.Sort();
         validRooms[0].isMainRoom = true;
         validRooms[0].isAccessibleFromMainRoom = true;
@@ -217,6 +219,19 @@ public class MapGenerator : MonoBehaviour {
                 }
             }
         }
+    }
+
+    void ExportRoomTiles(List<Room> validRooms)
+    {
+        HashSet<Coord> allRoomTiles = new HashSet<Coord>();
+        foreach(Room room in validRooms)
+        {
+            foreach(Coord tile in room.tiles)
+            {
+                allRoomTiles.Add(tile);
+            }
+        }
+        GameObject.FindGameObjectWithTag(Tags.mainCam).GetComponent<World>().setRoomTiles(allRoomTiles);
     }
 
     List<Coord> GetLine(Coord from, Coord to)
@@ -409,7 +424,7 @@ public class MapGenerator : MonoBehaviour {
         }
         return wallCount;
     }
-
+    /*
     struct Coord
     {
         public int tileX, tileY;
@@ -420,7 +435,7 @@ public class MapGenerator : MonoBehaviour {
             tileY = y;
         }
     }
-
+    */
     class Room : IComparable<Room>
     {
         public List<Coord> tiles;

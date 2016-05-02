@@ -6,6 +6,10 @@ public class Player : MonoBehaviour
     Rigidbody rigidbody;
     Vector3 velocity;
 
+    public float maxDistance = 10.0f;
+    public float maxWidth = 10.0f;
+    public float maxBrightness = 10.0f;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
