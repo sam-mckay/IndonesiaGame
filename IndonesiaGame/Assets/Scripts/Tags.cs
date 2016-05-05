@@ -7,5 +7,8 @@ using System.Collections;
 public class Tags
 {
     public static string player = "Player";
-	
+    public static string mainCam = "MainCamera";
+    public static string caveRoof = "Cave_Roof";
+    public static string mapGen = "Map_Generator";
+
 }
