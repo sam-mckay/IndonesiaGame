@@ -61,7 +61,7 @@ public class GlobalPowerUpManager : MonoBehaviour
 
     void placePowerUp(Coord newLocation)
     {
-        GameObject newPowerUp = (GameObject)Instantiate(PowerUp, new Vector3(newLocation.tileX, -4.1f, newLocation.tileY), Quaternion.identity);
+        GameObject newPowerUp = (GameObject)Instantiate(PowerUp, new Vector3(newLocation.tileX, -2.7f, newLocation.tileY), Quaternion.identity);
         
         int powerUpType = Random.Range(0, 5);
 

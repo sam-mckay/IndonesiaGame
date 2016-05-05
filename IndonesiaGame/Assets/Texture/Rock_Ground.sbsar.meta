@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 27f21347c8dab484980ba986f88719ce
-timeCreated: 1462218416
+timeCreated: 1462285685
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -10,7 +10,7 @@ SubstanceImporter:
     prototypeName: Dirt_Ground
     shaderName: 
     shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-    shaderKeywords: 
+    shaderKeywords: _METALLICGLOSSMAP _NORMALMAP
     renderQueue: -1
     lightmapFlags: 5
     inputs:
@@ -24,7 +24,7 @@ SubstanceImporter:
     materialInformation:
       serializedVersion: 5
       offset: {x: 0, y: 0}
-      scale: {x: 1, y: 1}
+      scale: {x: 15, y: 15}
       generateMipmaps: 1
       generateAllOutputs: 0
       animationUpdateRate: 0

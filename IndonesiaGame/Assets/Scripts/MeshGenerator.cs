@@ -96,20 +96,33 @@ public class MeshGenerator : MonoBehaviour
         wallMesh.vertices = wallVertices.ToArray();
         wallMesh.triangles = wallTriangles.ToArray();
         walls.mesh = wallMesh;
-
-        /* BROKE AS FUCK
+        
         int tileAmount = 10;
-        Vector2[] uvs = new Vector2[vertices.Count];
+        Vector2[] uvs = new Vector2[wallMesh.vertexCount];
 
-        for (int i = 0; i < wallVertices.Count; i++)
+        for (int i = 0; i < wallVertices.Count; i+=4)
         {
-            float percentX = Mathf.InverseLerp(-wallVertices.Count / 2 * squareSize, wallVertices.Count / 2 * squareSize, vertices[i].x) * tileAmount;
-            float percentY = Mathf.InverseLerp(-wallVertices.Count / 2 * squareSize, wallVertices.Count / 2 * squareSize, vertices[i].z) * tileAmount;
+            //float percentX = Mathf.InverseLerp(-wallVertices.Count / 2 * squareSize, wallVertices.Count / 2 * squareSize, vertices[i].x) * tileAmount;
+            //float percentY = Mathf.InverseLerp(-wallVertices.Count / 2 * squareSize, wallVertices.Count / 2 * squareSize, vertices[i].z) * tileAmount;
+            float percentX = i * 0.2f;
+            float percentY = 1.0f;
             uvs[i] = new Vector2(percentX, percentY);
+
+            percentX = i * 0.2f + 0.2f;
+            percentY = 1.0f;
+            uvs[i + 1] = new Vector2(percentX, percentY);
+
+            percentX = i * 0.2f;
+            percentY = 0.0f;
+            uvs[i + 2] = new Vector2(percentX, percentY);
+
+            percentX = i * 0.2f + 0.2f;
+            percentY = 0.0f;
+            uvs[i + 3] = new Vector2(percentX, percentY);
         }
 
         wallMesh.uv = uvs;
-        */
+        
         MeshCollider wallCollider = walls.gameObject.AddComponent<MeshCollider>();
         wallCollider.sharedMesh = wallMesh;
     }
