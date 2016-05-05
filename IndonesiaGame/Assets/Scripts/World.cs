@@ -18,6 +18,7 @@ public class World : MonoBehaviour
         roomTiles = _roomTiles;
         rooms = validRooms;
         objects = new Queue<GameObject>();
+
         foreach (GameObject obj in objectList)
         {
             objects.Enqueue(obj);
