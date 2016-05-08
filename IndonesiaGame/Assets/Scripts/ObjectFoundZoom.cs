@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class ObjectFoundZoom : MonoBehaviour {
@@ -25,10 +26,19 @@ public class ObjectFoundZoom : MonoBehaviour {
             yield return null;
         }
         yield return new WaitForSeconds(1.0f);
-        string saveName = SaveManager.pickUpObject + "_" + this.name;
+        string saveName = SaveManager.pickUpObject + "_" + this.transform.GetChild(0).name;
         GameObject.FindGameObjectWithTag(Tags.mainCam).GetComponent<World>().objectSaveNameList.Add(saveName);
         PlayerPrefs.SetInt(saveName, 1);
-        DestroyImmediate(transform.gameObject);
+        if (GameObject.FindGameObjectWithTag(Tags.mainCam).GetComponent<World>().objectSaveNameList.Count ==
+            GameObject.FindGameObjectWithTag(Tags.mainCam).GetComponent<World>().objectList.Length)
+        {
+            PlayerPrefs.SetInt(SaveManager.gameWon, 1);
+            SceneManager.LoadScene(2);
+        }
+        else
+        {
+            DestroyImmediate(transform.gameObject);
+        }
     }
 
 	// Use this for initialization
