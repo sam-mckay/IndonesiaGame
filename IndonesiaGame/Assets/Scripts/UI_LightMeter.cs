@@ -5,7 +5,6 @@ using UnityEngine.UI;
 [ExecuteInEditMode]
 public class UI_LightMeter : MonoBehaviour {
 
-    [Range(0,1)]
     public float radialValue = 0.0f;
 
     private Image sliderImage;

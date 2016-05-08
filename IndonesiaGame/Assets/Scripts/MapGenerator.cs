@@ -11,9 +11,9 @@ public class MapGenerator : MonoBehaviour {
     public bool useRandomSeed;
     [Range(0,100)]
     public int randomFillPercent;
+    public Timer remainingTime;
 
-
-    int[,] map;
+    public int[,] map;
 
     void Start()
     {
@@ -65,6 +65,7 @@ public class MapGenerator : MonoBehaviour {
 
     void CreateMapRegions()
     {
+        //REGION LIMITING
         List<List<Coord>> wallRegions = GetRegions(1);
         List<List<Coord>> roomRegions = GetRegions(0);
         List<Room> validRooms = new List<Room>();
@@ -107,6 +108,9 @@ public class MapGenerator : MonoBehaviour {
         ExportRoomTiles(validRooms);
 
         ConnectClosestRooms(validRooms);
+
+        
+        remainingTime.initTimer();
     }
 
     void ConnectClosestRooms(List<Room> allRooms, bool forceAccessibilityFromMainRoom = false)
@@ -201,7 +205,7 @@ public class MapGenerator : MonoBehaviour {
         List<Coord> line = GetLine(tileA, tileB);
         foreach(Coord c in line)
         {
-            DrawCircle(c, 1);
+            DrawCircle(c, 2);
         }
     }
 
