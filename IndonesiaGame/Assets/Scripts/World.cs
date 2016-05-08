@@ -7,13 +7,14 @@ public class World : MonoBehaviour
     public HashSet<Coord> roomTiles;
     public List<Room> rooms;
     public int objectCount;
-    public List<Coord> objectPositions;
+    public LinkedList<Coord> objectPositions;
     
     public GameObject[] objectList;
     public Queue<GameObject> objects;
     public List<string> objectSaveNameList;
 
     public Vector3 PlayerStartPos;
+    public Timer remainingTime;
 
     Vector3 FindStartTile()
     {
@@ -62,7 +63,7 @@ public class World : MonoBehaviour
 
         Vector3 oldCamPos = Camera.main.transform.position;
 
-
+        remainingTime.initTimer();
 
         Camera.main.transform.position = new Vector3(PlayerStartPos.x + 10, oldCamPos.y, PlayerStartPos.z + 10);
         Camera.main.transform.LookAt(new Vector3(PlayerStartPos.x + 2, 0, PlayerStartPos.z + 2));
@@ -95,6 +96,7 @@ public class World : MonoBehaviour
     void createNewObject(Coord position)
     {
         GameObject newObject = (GameObject)Instantiate(objects.Dequeue(),new Vector3(position.tileY, -4, position.tileY), Quaternion.identity);
+        objectPositions.AddLast(position);
     }
 }
 

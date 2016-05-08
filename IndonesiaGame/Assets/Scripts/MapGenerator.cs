@@ -13,7 +13,7 @@ public class MapGenerator : MonoBehaviour {
     public int randomFillPercent;
 
 
-    int[,] map;
+    public int[,] map;
 
     void Start()
     {
