@@ -44,10 +44,12 @@ public class World : MonoBehaviour
         objectSaveNameList = new List<string>();
         roomTiles = _roomTiles;
         rooms = validRooms;
+        objectPositions = new LinkedList<Coord>();
         objects = new Queue<GameObject>();
         foreach (GameObject obj in objectList)
         {
             objects.Enqueue(obj);
+            objectCount++;
         }
         if (objectCount > 0)
         {

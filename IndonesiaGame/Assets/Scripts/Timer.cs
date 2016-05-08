@@ -22,7 +22,7 @@ public class Timer : MonoBehaviour
             PathFinder pathing = new PathFinder();
             float totalDistance = 0.0f;
 
-            while (currentCoord != null)
+            while (currentCoord.Next != null)
             {
                 totalDistance += pathing.GridPathfind(getCoordVec2(currentCoord.Value), getCoordVec2(currentCoord.Next.Value), mapWidth, mapHeight, map);
                 currentCoord = currentCoord.Next;
@@ -43,6 +43,7 @@ public class Timer : MonoBehaviour
     {
 	    if(timerInitialised)
         {
+            timeRemaining -= Time.deltaTime;
             timerText.text = timeRemaining.ToString();
         }
 	}
