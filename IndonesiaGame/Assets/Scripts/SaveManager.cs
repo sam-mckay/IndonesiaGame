@@ -9,4 +9,5 @@ public class SaveManager
     //add items in below format
     //public static string  = "";
     public static string pickUpObject = "pickup_object_found";
+    public static string gameWon = "game_won";
 }

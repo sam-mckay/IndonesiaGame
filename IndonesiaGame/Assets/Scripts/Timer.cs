@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ public class Timer : MonoBehaviour
                 currentCoord = currentCoord.Next;
             }
 
-            timeRemaining = totalDistance + 30.0f;
+            timeRemaining = totalDistance;
             timerInitialised = true;
         }
     }
@@ -43,11 +44,13 @@ public class Timer : MonoBehaviour
     {
 	    if(timerInitialised)
         {
+            
             timeRemaining -= Time.deltaTime;
             if(timeRemaining < 0)
             {
                 //GAME OVER CODE
-
+                PlayerPrefs.SetInt(SaveManager.gameWon, 0);
+                SceneManager.LoadScene(2);
             }
             timerText.text = timeRemaining.ToString("F2");
         }
