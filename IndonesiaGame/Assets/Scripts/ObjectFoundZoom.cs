@@ -57,6 +57,19 @@ public class ObjectFoundZoom : MonoBehaviour {
                     objectFoundRotate = true;
                 }
             }
-        }        
+        }
+        
+
+                
 	}
+
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("ENTERED");
+        if(other.tag == Tags.player)
+        {
+            Debug.Log("PLAYER ENTERED");
+            objectFound = true;
+        }
+    }
 }

@@ -49,7 +49,7 @@ public class Timer : MonoBehaviour
                 //GAME OVER CODE
 
             }
-            timerText.text = timeRemaining.ToString();
+            timerText.text = timeRemaining.ToString("F2");
         }
 	}
 
