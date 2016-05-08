@@ -57,9 +57,6 @@ public class ObjectFoundZoom : MonoBehaviour {
                     objectFoundRotate = true;
                 }
             }
-        }
-        
-
-                
+        }        
 	}
 }

@@ -88,6 +88,9 @@ public class PathMovement : MonoBehaviour
                 PathfinderIndices++;
             }
 
+            //SM: added player rotation to face direction of travel
+            this.transform.LookAt(TargetLocation);
+
             // spotlights version 1
             //playerLight.SetActive(true);
 
