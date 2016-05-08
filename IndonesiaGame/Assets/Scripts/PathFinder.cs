@@ -134,7 +134,7 @@ public class PathFinder
     {
         if (IsInMapRange(x, y, width, height))
         {
-            if (map[x, y] == 1)
+            if (map[x, y] == 0)
                 return true;
             else
                 return false;

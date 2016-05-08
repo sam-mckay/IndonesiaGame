@@ -10,11 +10,12 @@ public class World : MonoBehaviour
     public LinkedList<Coord> objectPositions;
     
     public GameObject[] objectList;
+    public GameObject container;
     public Queue<GameObject> objects;
     public List<string> objectSaveNameList;
 
     public Vector3 PlayerStartPos;
-    public Timer remainingTime;
+    
 
     Vector3 FindStartTile()
     {
@@ -46,7 +47,20 @@ public class World : MonoBehaviour
         rooms = validRooms;
         objectPositions = new LinkedList<Coord>();
         objects = new Queue<GameObject>();
-        foreach (GameObject obj in objectList)
+
+        //DEBUG FEATURE
+        /*
+        int[,] map = GameObject.FindGameObjectWithTag(Tags.mapGen).GetComponent<MapGenerator>().map;
+        foreach (Room room in rooms)
+        {
+            foreach (Coord tile in room.tiles)
+            {
+                Debug.Log("ADDED: " + tile.tileX + "," + tile.tileY + " MAP: " + map[tile.tileX, tile.tileY]);
+            }
+        }
+        */
+        //
+            foreach (GameObject obj in objectList)
         {
             objects.Enqueue(obj);
             objectCount++;
@@ -65,7 +79,7 @@ public class World : MonoBehaviour
 
         Vector3 oldCamPos = Camera.main.transform.position;
 
-        remainingTime.initTimer();
+        
 
         Camera.main.transform.position = new Vector3(PlayerStartPos.x + 10, oldCamPos.y, PlayerStartPos.z + 10);
         Camera.main.transform.LookAt(new Vector3(PlayerStartPos.x + 2, 0, PlayerStartPos.z + 2));
@@ -97,8 +111,12 @@ public class World : MonoBehaviour
 
     void createNewObject(Coord position)
     {
-        GameObject newObject = (GameObject)Instantiate(objects.Dequeue(),new Vector3(position.tileY, -4, position.tileY), Quaternion.identity);
+        GameObject newObject = (GameObject)Instantiate(objects.Dequeue(),new Vector3(position.tileX, -4, position.tileY), Quaternion.identity);
+        GameObject newObjectContainer = (GameObject)Instantiate(container, new Vector3(position.tileX, -4, position.tileY), Quaternion.identity);
+        newObject.transform.parent = newObjectContainer.transform;
         objectPositions.AddLast(position);
+        int[,] map = GameObject.FindGameObjectWithTag(Tags.mapGen).GetComponent<MapGenerator>().map;
+        //Debug.Log("ADDED: " + position.tileX + "," + position.tileY+ " MAP: "+map[position.tileX, position.tileY]);
     }
 }
 

@@ -95,7 +95,7 @@ public class GlobalPowerUpManager : MonoBehaviour
         powerUpLocations.Add(newLocation);
         usedRows.Add(newLocation.tileX);
         usedColumns.Add(newLocation.tileY);
-        Debug.Log("ADDED: " + newLocation.tileX + "," + newLocation.tileY);
+        //Debug.Log("ADDED: " + newLocation.tileX + "," + newLocation.tileY);
     }
 
     float getBestObjectDistance()

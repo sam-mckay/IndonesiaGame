@@ -44,6 +44,11 @@ public class Timer : MonoBehaviour
 	    if(timerInitialised)
         {
             timeRemaining -= Time.deltaTime;
+            if(timeRemaining < 0)
+            {
+                //GAME OVER CODE
+
+            }
             timerText.text = timeRemaining.ToString();
         }
 	}
