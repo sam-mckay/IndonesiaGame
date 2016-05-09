@@ -10,7 +10,6 @@ public class LightPath : MonoBehaviour
     bool getNewPosition = true;
     public Material mat;
     bool isFirstVertex = true;
-    //public GameObject PlayerCharacter;
 
     public static Dictionary<Vector3, GameObject> Spotlights = new Dictionary<Vector3, GameObject>();
 
@@ -26,10 +25,17 @@ public class LightPath : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    PathMousePositions.Clear();
-        //}
+        World world = GameObject.FindGameObjectWithTag(Tags.mainCam).GetComponent<World>();
+
+        if(!world.HasGameStarted)
+        {
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            PathMousePositions.Clear();
+        }
 
         if (Input.GetMouseButton(0))
         {
@@ -42,7 +48,6 @@ public class LightPath : MonoBehaviour
             if (SecondCounter > 0.01f * FPS) // 10 milliseconds passed
             {
                 getNewPosition = true;
-                //Debug.Log("getting new pos");
 
                 SecondCounter = 0;
             }
@@ -56,29 +61,49 @@ public class LightPath : MonoBehaviour
             if (getNewPosition)
             {
                 Vector3 newPos = Vector3.zero;
+                Vector3 normalAtHit = Vector3.zero;
 
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, 100.0f))
                 {
                     newPos = hit.point;
+                    normalAtHit = hit.normal;
                 }
 
                 if (oldMousePos != newPos)
                 {
-                    oldMousePos = newPos;
-                    newPos.y = groundPlane.transform.position.y + 0.05f;
-                    PathMousePositions.Add(newPos);
+                    // if we're not trying to trace on a roof
+                    bool isHittingRoof = newPos.y > 0.1f && normalAtHit == Vector3.up;
 
-                    // don't double the first vertex, otherwise we're not drawing anything (it will draw from its position to itself)
-                    if (isFirstVertex)
+                    if (!isHittingRoof)
                     {
-                        isFirstVertex = false;
+                        // if we're hitting the side of the wall
+                        if(newPos.y > 0.1f)
+                        {
+                            // move the point a small distance away from the wall in the direction of the normal
+                            // so the path does not cause the character to move through the wall
+                            newPos += normalAtHit;
+                        }
+
+                        oldMousePos = newPos;
+                        newPos.y = groundPlane.transform.position.y + 0.05f;
+                        PathMousePositions.Add(newPos);
+
+                        // don't double the first vertex, otherwise we're not drawing anything (it will draw from its position to itself)
+                        if (isFirstVertex)
+                        {
+                            isFirstVertex = false;
+                        }
+                        else
+                        {
+                            // double up the vertex to create a continuous line
+                            PathMousePositions.Add(newPos);
+                        }
                     }
                     else
                     {
-                        // double up the vertex to create a continuous line
-                        PathMousePositions.Add(newPos);
+                        Debug.Log("Hit roof!");
                     }
                 }
             }
@@ -119,6 +144,11 @@ public class LightPath : MonoBehaviour
             // spotlight version 2
             for(int i = 0; i < 5; ++i)
             {
+                if(PathMousePositions.Count < 2)
+                {
+                    return;
+                }
+
                 Vector3 key = PathMousePositions[PathMousePositions.Count / 5 * i];
                 key.y = -3.5f;
 

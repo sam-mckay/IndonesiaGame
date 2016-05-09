@@ -58,6 +58,7 @@ public class PathMovement : MonoBehaviour
                 //playerLight.SetActive(false);
                 LightPath.PathMousePositions.Clear();
                 AllowedToMove = false;
+                PathfinderIndices = 0;
                 return;
             }
 
@@ -68,8 +69,12 @@ public class PathMovement : MonoBehaviour
                     LightPath.Spotlights[TargetLocation].SetActive(false);
                 }
 
-                SetIntermediateTarget(LightPath.PathMousePositions[PathfinderIndices]);
-                HasReachedTarget = false;
+                if (PathfinderIndices < LightPath.PathMousePositions.Count)
+                {
+
+                    SetIntermediateTarget(LightPath.PathMousePositions[PathfinderIndices]);
+                    HasReachedTarget = false;
+                }
             }
 
             float distToTarget = Vector3.Distance(TargetLocation, transform.position);

@@ -31,6 +31,7 @@ public class Timer : MonoBehaviour
 
             timeRemaining = totalDistance;
             timerInitialised = true;
+            world.HasGameStarted = true;
         }
     }
 

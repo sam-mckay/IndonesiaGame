@@ -15,6 +15,8 @@ public class World : MonoBehaviour
     public List<string> objectSaveNameList;
 
     public Vector3 PlayerStartPos;
+
+    public bool HasGameStarted = false;
     
 
     Vector3 FindStartTile()
